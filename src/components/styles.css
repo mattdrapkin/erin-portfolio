@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather&display=swap");
+
+* {
+    font-family: Georgia, 'Times New Roman', Times, serif
+}
+
+.link {
+  margin: 0 40px;
+  text-decoration: "none";
+  color: "white";
+  font-size: "24px";
+}
+
+.headshot-container {
+  width: calc(33.33% - 20px); /* Left third of the screen minus padding */
+  min-width: 33.33%;
+  height: 100%;
+  overflow: hidden;
+  margin-right: 3rem;
+  display: flex;
+  align-items: center;
+}
+
+.headshot {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 50%; /* Make the image inside circular */
+  min-width: 4rem; /* Minimum width for the headshot */
+  min-height: 4rem; /* Minimum height for the headshot */
+  border: 5px solid #5b446a;
+}
+
+#home-text-container {
+  font-size: 20px;
+  flex-grow: 1;
+}
+
+#home-container {
+  display: flex;
+  align-items: center;
+  padding: 3rem 10rem;
+}
