@@ -47,7 +47,7 @@ export default function Footer() {
       <Button onClick={handleEmailClick} target="_blank" variant="ghost">
         <EmailIcon style={styles.icon} />
       </Button>
-      <div style={{ marginRight: "5rem" }}></div>
+      <div className="push-left"></div>
     </div>
   );
 }

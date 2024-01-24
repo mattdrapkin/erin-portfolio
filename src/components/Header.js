@@ -34,7 +34,7 @@ const Header = () => {
 
   return (
     <div style={styles.headerStyle}>
-      <Link to="/">
+      <Link className="signature" to="/">
         <img src="/erin-sig.png" alt="signature" width={250} />
       </Link>
       <div>
