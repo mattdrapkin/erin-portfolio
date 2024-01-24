@@ -33,10 +33,11 @@ const Header = () => {
   };
 
   return (
-    <div style={styles.headerStyle}>
+    <div className="header" style={styles.headerStyle}>
       <Link className="signature" to="/">
         <img src="/erin-sig.png" alt="signature" width={250} />
       </Link>
+      <div className="neg-margin"></div>
       <div>
         <NavLink to="/">
           {({ isActive }) => (

@@ -59,7 +59,6 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    border: 2px solid blue;
     padding: 3rem 5rem;
   }
   .push-left {
@@ -67,10 +66,20 @@
   }
 
   body {
-    width: 100vh;
+    height: 100vh;
   }
 
   .signature {
     display: none;
   }
+
+  .header {
+    text-align: center;
+  }
+
+  .neg-margin {
+    margin-left: -20px;
+
+  }
+
 }
