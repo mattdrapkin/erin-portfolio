@@ -165,15 +165,7 @@ export default function Portfolio() {
             Daedalus Literary Magazine
           </h2>
         </div>
-        {articles.litMagPoems.map((poem, idx) => (
-          <ModalCard
-            key={uuidv4()}
-            title={poem.title}
-            content={poem.content}
-            color={poemPurple}
-            idx={idx}
-          />
-        ))}
+        <p>Please flip to horizontal view to see this section.</p>
       </div>
     </>
   );
