@@ -7,10 +7,10 @@ export default function Home() {
         <img src="/headshot.jpeg" alt="Headshot" className="headshot" />
       </div>
       <div id="home-text-container">
-        <p>Hi! My name is Erin McGinniss.</p>
+        <p>Hi! My name is <span style={{color: "#87659e", fontWeight: "bold"}}>Erin McGinniss.</span></p>
         <p>
-          Currently pursuing a B.A. in English with concentration in Creative
-          Writing with a minor in American Sign Language. On a mission to bridge
+          I'm currently pursuing a B.A. in English at West Chester Univeristy with a concentration in Creative
+          Writing, alongside a minor in American Sign Language. On a mission to bridge
           communication gaps and create a more inclusive world, I have
           aspirations to secure an ASL certification post-graduation.
         </p>

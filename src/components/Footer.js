@@ -8,6 +8,9 @@ import { Button } from "@mui/material";
 export default function Footer() {
   const styles = {
     footer: {
+      position: "sixed",
+      bottom: "0",
+      left: "0",
       backgroundColor: "#5b446a",
       width: "100%",
       height: "5rem",

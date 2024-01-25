@@ -2,28 +2,68 @@ import React from "react";
 import LinkCard from "./LinkCard";
 import { Grid } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
-import articlesData from "../articlesData.json";
-import ModalCard from "./ModalCard";
+import articles from "../articlesData.json";
+import { Link } from "@mui/material";
 
 export default function Portfolio() {
+  const quadPurple = "#CBC3E3";
+  const countyLinesPurple = "#D8BFD8";
   return (
-    <Grid sx={{ padding: "3rem" }} container spacing={2}>
-      {articlesData.map((card) => (
-        <Grid item key={uuidv4()} xs={12} sm={6} lg={4}>
-          {card.link ? (
-            <LinkCard
-              title={card.title}
-              imageUrl={card.imageUrl}
-              link={card.link}
-            />
-          ) : (
-            <ModalCard
-            title={card.title}
-            imageUrl={card.imageUrl}
-            />
-          )}
+    <div className="portfolio-wrapper">
+      <div className="ghost-desktop"></div>
+
+      <div className="articles-wrapper">
+        {/* Quad Articles */}
+        <Link
+          className="img-flex-wrapper"
+          href="https://wcuquad.com/"
+          target="_blank"
+          rel="noopener"
+        >
+          <img
+            src="/quad-logo.png"
+            alt="Quad Logo"
+            style={{ width: "60%" }}
+          />
+        </Link>
+        <Grid container spacing={2}>
+          {articles.quadArticles.map((article) => (
+            <Grid item key={uuidv4()} sm={4} lg={4}>
+              <LinkCard
+                title={article.title}
+                link={article.link}
+                color={quadPurple}
+              />
+            </Grid>
+          ))}
         </Grid>
-      ))}
-    </Grid>
+
+        {/* County Lines Articles */}
+        <Link
+          className="img-flex-wrapper"
+          href="https://wcuquad.com/"
+          target="_blank"
+          rel="noopener"
+        >
+          <img
+            src="/cl-logo.png"
+            alt="County Lines Logo"
+            style={{ width: "70%" }}
+          />
+        </Link>
+        <Grid container spacing={2}>
+          {articles.countyLinesArticles.map((article) => (
+            <Grid item key={uuidv4()} lg={4}>
+              <LinkCard
+                title={article.title}
+                link={article.link}
+                color={countyLinesPurple}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </div>
+      <div className="ghost-desktop"></div>
+    </div>
   );
 }
