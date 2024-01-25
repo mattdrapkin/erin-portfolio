@@ -5,32 +5,25 @@ import { Link } from "@mui/material";
 import Paper from "@mui/material/Paper";
 
 const LinkCard = ({ title, link, color }) => {
-  const paperStyle = {
-    width: "12rem",
-    height: "12rem",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-    padding: "1rem",
-    backgroundColor: color,
-  };
   return (
     <Link href={link} underline="none" target="_blank" rel="noopener">
-      <Paper elevation={4} sx={paperStyle}>
+      <Paper
+        elevation={8}
+        sx={{ backgroundColor: color }}
+        className="article-paper"
+      >
         <Typography
           variant="body1"
           style={{
             fontSize: "1.2rem",
-            fontFamily: 'sans-serif',
-            fontWeight: "bolder",
+            fontFamily: 'Georgia, "Times New Roman", Times, serif',
             textDecoration: "none",
             color: "black",
           }}
         >
           {title}
         </Typography>
-      </Paper>{" "}
+      </Paper>
     </Link>
   );
 };

@@ -4,15 +4,106 @@ import { Grid } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import articles from "../articlesData.json";
 import { Link } from "@mui/material";
+import ModalCard from "./ModalCard";
 
 export default function Portfolio() {
   const quadPurple = "#CBC3E3";
   const countyLinesPurple = "#D8BFD8";
-  return (
-    <div className="portfolio-wrapper">
-      <div className="ghost-desktop"></div>
+  const poemPurple = "#f0e1f0";
 
-      <div className="articles-wrapper">
+  return (
+    <>
+      {/* DESKTOP ONLY */}
+      <div className="portfolio-wrapper">
+        <div className="ghost-desktop"></div>
+
+        <div className="articles-wrapper">
+          {/* Quad Articles */}
+          <Link
+            className="img-flex-wrapper"
+            href="https://wcuquad.com/"
+            target="_blank"
+            rel="noopener"
+          >
+            <img
+              src="/quad-logo.png"
+              alt="Quad Logo"
+              style={{ width: "60%" }}
+            />
+          </Link>
+          <Grid container spacing={2}>
+            {articles.quadArticles.map((article) => (
+              <Grid item key={uuidv4()} sm={4}>
+                <LinkCard
+                  title={article.title}
+                  link={article.link}
+                  color={quadPurple}
+                />
+              </Grid>
+            ))}
+          </Grid>
+
+          {/* County Lines Articles */}
+          <Link
+            className="img-flex-wrapper"
+            href="https://countylinesmagazine.com/"
+            target="_blank"
+            rel="noopener"
+          >
+            <img
+              src="/cl-logo.png"
+              alt="County Lines Logo"
+              style={{ width: "70%" }}
+            />
+          </Link>
+          <Grid container spacing={2}>
+            {articles.countyLinesArticles.map((article) => (
+              <Grid item key={uuidv4()} sm={4}>
+                <LinkCard
+                  title={article.title}
+                  link={article.link}
+                  color={countyLinesPurple}
+                />
+              </Grid>
+            ))}
+          </Grid>
+
+          {/* Literary Magazine Poems */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              placeItems: "center",
+              justifyContent: "space-around",
+            }}
+          >
+            <img
+              src="/wcu-logo.png"
+              alt="West Chester University Logo"
+              style={{ width: "80%" }}
+            />
+            <h2 style={{ textAlign: "center", margin: "-0.3rem" }}>
+              Daedalus Literary Magazine
+            </h2>
+          </div>
+          <Grid container spacing={2}>
+            {articles.litMagPoems.map((poem, idx) => (
+              <Grid item key={uuidv4()} sm={4}>
+                <ModalCard
+                  title={poem.title}
+                  content={poem.content}
+                  color={poemPurple}
+                  idx={idx}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </div>
+        <div className="ghost-desktop"></div>
+      </div>
+
+      {/* MOBILE ONLY */}
+      <div className="portfolio-wrapper-mobile">
         {/* Quad Articles */}
         <Link
           className="img-flex-wrapper"
@@ -23,47 +114,67 @@ export default function Portfolio() {
           <img
             src="/quad-logo.png"
             alt="Quad Logo"
-            style={{ width: "60%" }}
+            style={{ width: "60%", marginTop: "2rem" }}
           />
         </Link>
-        <Grid container spacing={2}>
-          {articles.quadArticles.map((article) => (
-            <Grid item key={uuidv4()} sm={4} lg={4}>
-              <LinkCard
-                title={article.title}
-                link={article.link}
-                color={quadPurple}
-              />
-            </Grid>
-          ))}
-        </Grid>
+        {articles.quadArticles.map((article) => (
+          <LinkCard
+            key={uuidv4()}
+            title={article.title}
+            link={article.link}
+            color={quadPurple}
+          />
+        ))}
 
         {/* County Lines Articles */}
         <Link
           className="img-flex-wrapper"
-          href="https://wcuquad.com/"
+          href="https://countylinesmagazine.com/"
           target="_blank"
           rel="noopener"
         >
           <img
             src="/cl-logo.png"
             alt="County Lines Logo"
-            style={{ width: "70%" }}
+            style={{ width: "70%", marginTop: "2rem" }}
           />
         </Link>
-        <Grid container spacing={2}>
-          {articles.countyLinesArticles.map((article) => (
-            <Grid item key={uuidv4()} lg={4}>
-              <LinkCard
-                title={article.title}
-                link={article.link}
-                color={countyLinesPurple}
-              />
-            </Grid>
-          ))}
-        </Grid>
+        {articles.countyLinesArticles.map((article) => (
+          <LinkCard
+            key={uuidv4()}
+            title={article.title}
+            link={article.link}
+            color={countyLinesPurple}
+          />
+        ))}
+        {/* Literary Magazine Poems */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            placeItems: "center",
+            justifyContent: "space-around",
+          }}
+        >
+          <img
+            src="/wcu-logo.png"
+            alt="West Chester University Logo"
+            style={{ width: "80%" }}
+          />
+          <h2 style={{ textAlign: "center", margin: "-0.3rem" }}>
+            Daedalus Literary Magazine
+          </h2>
+        </div>
+        {articles.litMagPoems.map((poem, idx) => (
+          <ModalCard
+            key={uuidv4()}
+            title={poem.title}
+            content={poem.content}
+            color={poemPurple}
+            idx={idx}
+          />
+        ))}
       </div>
-      <div className="ghost-desktop"></div>
-    </div>
+    </>
   );
 }

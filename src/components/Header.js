@@ -35,7 +35,7 @@ const Header = () => {
   return (
     <div className="header" style={styles.headerStyle}>
       <Link className="signature" to="/">
-        <img src="/erin-sig.png" alt="signature" width={250} />
+        <img src="/erin-sig.png" alt="signature" width={280} />
       </Link>
       <div className="neg-margin"></div>
       <div>

@@ -67,6 +67,25 @@
   justify-content: center;
 }
 
+.article-paper {
+  width: 12rem;
+  height: 12rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+  transition: background-color 1s; /* Add a smooth transition effect */
+
+  &:hover {
+    background-color: #d5def5; /* Change the background color on hover */
+  }
+}
+
+.portfolio-wrapper-mobile {
+  display: none;
+}
+
 @media only screen and (max-width: 600px) {
   .headshot-container {
     width: 100%;
@@ -102,11 +121,20 @@
     margin-left: -20px;
   }
 
-  .ghost-desktop {
-    display: none;
+  .portfolio-wrapper {
+    display: flex;
   }
 
   .portfolio-wrapper {
-    padding-left: 7rem;
+    display: none;
+  }
+
+  .portfolio-wrapper-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
   }
 }

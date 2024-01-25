@@ -1,42 +1,53 @@
 import React from "react";
-import { Card } from "@mui/material";
+import { Paper } from "@mui/material";
+import { Typography } from "@mui/material";
 
-export default function ModalCard( {idx, title} ) {
+export default function ModalCard({ title, content, color, idx }) {
   return (
-    <Card sx={{ maxWidth: 400 }}>
+    <>
+      {/* Button trigger modal */}
       <button
         type="button"
-        class="btn btn-primary"
+        style={{ padding: 0, border: 0 }}
         data-bs-toggle="modal"
         data-bs-target={`#modal${idx}`}
       >
-        Launch demo modal
+        <Paper
+          elevation={8}
+          sx={{ backgroundColor: color }}
+          className="article-paper"
+        >
+          <Typography
+            variant="body1"
+            style={{
+              fontSize: "1.3rem",
+              fontFamily: 'Georgia, "Times New Roman", Times, serif',
+              textDecoration: "none",
+              color: "black",
+            }}
+          >
+            {title}
+          </Typography>
+        </Paper>
       </button>
 
+      {/* Modal */}
       <div
-        class="modal fade"
+        className="modal fade"
         id={`modal${idx}`}
-        tabindex="-1"
+        tabIndex="-1"
+        aria-labelledby="modalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">
-                {title}
-              </h1>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-body">
+              <div dangerouslySetInnerHTML={{ __html: content }} />
             </div>
-            <div class="modal-body">...</div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
                 Close
@@ -45,6 +56,6 @@ export default function ModalCard( {idx, title} ) {
           </div>
         </div>
       </div>
-    </Card>
+    </>
   );
 }
