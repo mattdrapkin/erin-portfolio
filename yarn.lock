@@ -3325,6 +3325,11 @@
   "resolved" "https://registry.npmjs.org/batch/-/batch-0.6.1.tgz"
   "version" "0.6.1"
 
+"bcryptjs@^2.4.3":
+  "integrity" "sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ=="
+  "resolved" "https://registry.npmjs.org/bcryptjs/-/bcryptjs-2.4.3.tgz"
+  "version" "2.4.3"
+
 "bfj@^7.0.2":
   "integrity" "sha512-I6MMLkn+anzNdCUp9hMRyui1HaNEUCco50lxbvNS4+EyXg8lN3nJ48PjPWtbH8UVS9CuMoaKE9U2V3l29DaRQw=="
   "resolved" "https://registry.npmjs.org/bfj/-/bfj-7.1.0.tgz"
