@@ -3,6 +3,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import EmailIcon from "@mui/icons-material/Email";
 import { Button } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 export default function Footer() {
   const styles = {
@@ -45,9 +46,9 @@ export default function Footer() {
   return (
     <div style={styles.footer}>
       {/* Sign In Button on the Left */}
-      <Button href="/signin" variant="text" style={styles.btn}>
-        sign in
-      </Button>
+      <NavLink to="/signin" style={styles.btn}>
+          sign in
+      </NavLink>
 
       {/* Icons on the Right */}
       <div style={styles.iconContainer}>

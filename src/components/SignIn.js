@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();  // Initialize useHistory
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
