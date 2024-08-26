@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from "react";
+import {
+  Grid,
+  IconButton,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+  TextareaAutosize,
+} from "@mui/material";
 import LinkCard from "./LinkCard";
-import { Grid, IconButton, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import { Link } from "@mui/material";
 import ModalCard from "./ModalCard";
@@ -19,6 +30,7 @@ export default function ManagePortfolio() {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [newTitle, setNewTitle] = useState("");
   const [newLink, setNewLink] = useState("");
+  const [newContent, setNewContent] = useState(""); // For poems content
 
   useEffect(() => {
     fetch("/.netlify/functions/fetchData")
@@ -54,7 +66,10 @@ export default function ManagePortfolio() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ category: selectedCategory, index: selectedIndex }),
+      body: JSON.stringify({
+        category: selectedCategory,
+        index: selectedIndex,
+      }),
     })
       .then((response) => response.json())
       .then((data) => console.log("Delete success:", data))
@@ -72,10 +87,26 @@ export default function ManagePortfolio() {
     setOpenAdd(false);
     setNewTitle("");
     setNewLink("");
+    setNewContent(""); // Reset content
+  };
+
+  const transformTextToHtml = (title, text) => {
+    const paragraphs = text
+      .split("\n\n")
+      .map((para) => para.split("\n").join("<br>"));
+    const formattedBody = paragraphs.map((para) => `<p>${para}</p>`).join("");
+
+    return `<p><strong>${title}</strong></p>${formattedBody}`;
   };
 
   const handleAdd = () => {
-    const newArticle = { title: newTitle, link: newLink };
+    let newArticle;
+    if (selectedCategory === "litMagPoems") {
+      const transformedContent = transformTextToHtml(newTitle, newContent);
+      newArticle = { title: newTitle, content: transformedContent };
+    } else {
+      newArticle = { title: newTitle, link: newLink };
+    }
 
     const updatedArticles = { ...articles };
     updatedArticles[selectedCategory].push(newArticle);
@@ -109,7 +140,8 @@ export default function ManagePortfolio() {
         <DialogTitle id="alert-dialog-title">{"Confirm Deletion"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete this article? This action cannot be undone.
+            Are you sure you want to delete this article? This action cannot be
+            undone.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -122,36 +154,52 @@ export default function ManagePortfolio() {
         </DialogActions>
       </Dialog>
 
-      {/* Add Article Dialog */}
+      {/* Add Article or Poem Dialog */}
       <Dialog
         open={openAdd}
         onClose={handleCloseAdd}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Add New Article</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+          Add New {selectedCategory === "litMagPoems" ? "Poem" : "Article"}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To add a new article, please enter the title and the link here.
+            To add a new{" "}
+            {selectedCategory === "litMagPoems" ? "poem" : "article"}, please
+            enter the title and{" "}
+            {selectedCategory === "litMagPoems" ? "content" : "link"} here.
           </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
             id="title"
-            label="Article Title"
+            label="Title"
             type="text"
             fullWidth
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
           />
-          <TextField
-            margin="dense"
-            id="link"
-            label="Article Link"
-            type="url"
-            fullWidth
-            value={newLink}
-            onChange={(e) => setNewLink(e.target.value)}
-          />
+          {selectedCategory === "litMagPoems" ? (
+            <TextareaAutosize
+              aria-label="Poem Content"
+              minRows={10}
+              placeholder="Enter the poem content"
+              style={{ width: "100%", marginTop: "1rem" }}
+              value={newContent}
+              onChange={(e) => setNewContent(e.target.value)}
+            />
+          ) : (
+            <TextField
+              margin="dense"
+              id="link"
+              label="Link"
+              type="url"
+              fullWidth
+              value={newLink}
+              onChange={(e) => setNewLink(e.target.value)}
+            />
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseAdd} color="primary">
@@ -184,7 +232,12 @@ export default function ManagePortfolio() {
           <Grid container spacing={2}>
             {articles &&
               articles.quadArticles.map((article, index) => (
-                <Grid item key={uuidv4()} sm={4} style={{ position: "relative" }}>
+                <Grid
+                  item
+                  key={uuidv4()}
+                  sm={4}
+                  style={{ position: "relative" }}
+                >
                   <LinkCard
                     title={article.title}
                     link={article.link}
@@ -228,7 +281,12 @@ export default function ManagePortfolio() {
           <Grid container spacing={2}>
             {articles &&
               articles.countyLinesArticles.map((article, index) => (
-                <Grid item key={uuidv4()} sm={4} style={{ position: "relative" }}>
+                <Grid
+                  item
+                  key={uuidv4()}
+                  sm={4}
+                  style={{ position: "relative" }}
+                >
                   <LinkCard
                     title={article.title}
                     link={article.link}
@@ -242,7 +300,9 @@ export default function ManagePortfolio() {
                       right: 0,
                       color: "#5b446a",
                     }}
-                    onClick={() => handleClickOpenDelete("countyLinesArticles", index)}
+                    onClick={() =>
+                      handleClickOpenDelete("countyLinesArticles", index)
+                    }
                   >
                     <DeleteIcon />
                   </IconButton>
@@ -277,7 +337,12 @@ export default function ManagePortfolio() {
           <Grid container spacing={2}>
             {articles &&
               articles.litMagPoems.map((poem, index) => (
-                <Grid item key={uuidv4()} sm={4} style={{ position: "relative" }}>
+                <Grid
+                  item
+                  key={uuidv4()}
+                  sm={4}
+                  style={{ position: "relative" }}
+                >
                   <ModalCard
                     title={poem.title}
                     content={poem.content}
@@ -376,7 +441,9 @@ export default function ManagePortfolio() {
                   right: 0,
                   color: "#5b446a",
                 }}
-                onClick={() => handleClickOpenDelete("countyLinesArticles", index)}
+                onClick={() =>
+                  handleClickOpenDelete("countyLinesArticles", index)
+                }
               >
                 <DeleteIcon />
               </IconButton>
