@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { TextField, Button, Typography, Container, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();  // Initialize useHistory
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Call the Netlify function to authenticate the user
     fetch("/.netlify/functions/authUser", {
       method: "POST",
       headers: {
@@ -20,6 +21,7 @@ export default function SignIn() {
       .then((data) => {
         if (data.message === "Authentication successful") {
           console.log("Signed in successfully");
+          navigate("/manage-portfolio");
         } else {
           console.error("Sign in failed:", data.message);
         }

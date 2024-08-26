@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Portfolio from "./components/Portfolio";
 import Footer from "./components/Footer";
 import SignIn from "./components/SignIn";
+import ManagePortfolio from "./components/ManagePortfolio";
 
 function App() {
   return (
@@ -16,8 +17,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/manage-portfolio" element={<ManagePortfolio />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </div>
     </BrowserRouter>
   );
