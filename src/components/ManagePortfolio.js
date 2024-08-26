@@ -10,6 +10,8 @@ import {
   DialogTitle,
   TextField,
   TextareaAutosize,
+  Box,
+  CircularProgress,
 } from "@mui/material";
 import LinkCard from "./LinkCard";
 import { v4 as uuidv4 } from "uuid";
@@ -30,7 +32,8 @@ export default function ManagePortfolio() {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [newTitle, setNewTitle] = useState("");
   const [newLink, setNewLink] = useState("");
-  const [newContent, setNewContent] = useState(""); // For poems content
+  const [newContent, setNewContent] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("/.netlify/functions/fetchData")
@@ -40,9 +43,30 @@ export default function ManagePortfolio() {
         }
         return response.json();
       })
-      .then((data) => setArticles(data[0]))
-      .catch((error) => console.error("Error fetching data:", error));
+      .then((data) => {
+        setArticles(data[0]);
+        setLoading(false); // Data is fetched, stop loading
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setLoading(false); // Stop loading even if there is an error
+      });
   }, []);
+
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   const handleClickOpenDelete = (category, index) => {
     setSelectedCategory(category);

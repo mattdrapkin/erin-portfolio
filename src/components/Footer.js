@@ -27,6 +27,7 @@ export default function Footer() {
       textTransform: "none",
       textDecoration: "none",
       margin: "0 30px",
+      textAlign: "center",
       color: "white",
       fontSize: "16px",
       fontFamily: 'Georgia, Times New Roman, Times, serif'

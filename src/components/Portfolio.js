@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LinkCard from "./LinkCard";
-import { Grid } from "@mui/material";
+import { Grid, CircularProgress, Box } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import { Link } from "@mui/material";
 import ModalCard from "./ModalCard";
-import { useEffect, useState } from "react";
 
 export default function Portfolio() {
   const quadPurple = "#CBC3E3";
@@ -12,6 +11,7 @@ export default function Portfolio() {
   const poemPurple = "#f0e1f0";
 
   const [articles, setArticles] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("/.netlify/functions/fetchData")
@@ -21,9 +21,30 @@ export default function Portfolio() {
         }
         return response.json();
       })
-      .then((data) => setArticles(data[0]))
-      .catch((error) => console.error("Error fetching data:", error));
+      .then((data) => {
+        setArticles(data[0]);
+        setLoading(false); // Data is fetched, stop loading
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setLoading(false); // Stop loading even if there is an error
+      });
   }, []);
+
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <>
@@ -166,6 +187,7 @@ export default function Portfolio() {
               color={countyLinesPurple}
             />
           ))}
+
         {/* Literary Magazine Poems */}
         <div
           style={{
