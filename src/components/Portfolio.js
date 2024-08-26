@@ -2,14 +2,28 @@ import React from "react";
 import LinkCard from "./LinkCard";
 import { Grid } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
-import articles from "../articlesData.json";
 import { Link } from "@mui/material";
 import ModalCard from "./ModalCard";
+import { useEffect, useState } from "react";
 
 export default function Portfolio() {
   const quadPurple = "#CBC3E3";
   const countyLinesPurple = "#D8BFD8";
   const poemPurple = "#f0e1f0";
+
+  const [articles, setArticles] = useState(null);
+
+  useEffect(() => {
+    fetch("/.netlify/functions/fetchData")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => setArticles(data[0]))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
 
   return (
     <>
@@ -32,15 +46,16 @@ export default function Portfolio() {
             />
           </Link>
           <Grid container spacing={2}>
-            {articles.quadArticles.map((article) => (
-              <Grid item key={uuidv4()} sm={4}>
-                <LinkCard
-                  title={article.title}
-                  link={article.link}
-                  color={quadPurple}
-                />
-              </Grid>
-            ))}
+            {articles &&
+              articles.quadArticles.map((article) => (
+                <Grid item key={uuidv4()} sm={4}>
+                  <LinkCard
+                    title={article.title}
+                    link={article.link}
+                    color={quadPurple}
+                  />
+                </Grid>
+              ))}
           </Grid>
 
           {/* County Lines Articles */}
@@ -57,15 +72,16 @@ export default function Portfolio() {
             />
           </Link>
           <Grid container spacing={2}>
-            {articles.countyLinesArticles.map((article) => (
-              <Grid item key={uuidv4()} sm={4}>
-                <LinkCard
-                  title={article.title}
-                  link={article.link}
-                  color={countyLinesPurple}
-                />
-              </Grid>
-            ))}
+            {articles &&
+              articles.countyLinesArticles.map((article) => (
+                <Grid item key={uuidv4()} sm={4}>
+                  <LinkCard
+                    title={article.title}
+                    link={article.link}
+                    color={countyLinesPurple}
+                  />
+                </Grid>
+              ))}
           </Grid>
 
           {/* Literary Magazine Poems */}
@@ -87,16 +103,17 @@ export default function Portfolio() {
             </h2>
           </div>
           <Grid container spacing={2}>
-            {articles.litMagPoems.map((poem, idx) => (
-              <Grid item key={uuidv4()} sm={4}>
-                <ModalCard
-                  title={poem.title}
-                  content={poem.content}
-                  color={poemPurple}
-                  idx={idx}
-                />
-              </Grid>
-            ))}
+            {articles &&
+              articles.litMagPoems.map((poem, idx) => (
+                <Grid item key={uuidv4()} sm={4}>
+                  <ModalCard
+                    title={poem.title}
+                    content={poem.content}
+                    color={poemPurple}
+                    idx={idx}
+                  />
+                </Grid>
+              ))}
           </Grid>
         </div>
         <div className="ghost-desktop"></div>
@@ -117,14 +134,15 @@ export default function Portfolio() {
             style={{ width: "60%", marginTop: "2rem" }}
           />
         </Link>
-        {articles.quadArticles.map((article) => (
-          <LinkCard
-            key={uuidv4()}
-            title={article.title}
-            link={article.link}
-            color={quadPurple}
-          />
-        ))}
+        {articles &&
+          articles.quadArticles.map((article) => (
+            <LinkCard
+              key={uuidv4()}
+              title={article.title}
+              link={article.link}
+              color={quadPurple}
+            />
+          ))}
 
         {/* County Lines Articles */}
         <Link
@@ -139,14 +157,15 @@ export default function Portfolio() {
             style={{ width: "70%", marginTop: "2rem" }}
           />
         </Link>
-        {articles.countyLinesArticles.map((article) => (
-          <LinkCard
-            key={uuidv4()}
-            title={article.title}
-            link={article.link}
-            color={countyLinesPurple}
-          />
-        ))}
+        {articles &&
+          articles.countyLinesArticles.map((article) => (
+            <LinkCard
+              key={uuidv4()}
+              title={article.title}
+              link={article.link}
+              color={countyLinesPurple}
+            />
+          ))}
         {/* Literary Magazine Poems */}
         <div
           style={{
